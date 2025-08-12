@@ -20,12 +20,8 @@ public class MedicoController {
 
     @PostMapping
     public ResponseEntity cadastrar(@RequestBody @Valid DadosDadosMedico dados, UriComponentsBuilder uriBuilder) {
-
-        var medico = new Medico(dados);
-        repositorio.save(medico);
-
-        var uri = uriBuilder.path("/medico/{id}").buildAndExpand(medico.getId()).toUri();
-
+        var medico = repositorio.save(new Medico(dados));
+        var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
     }
 
@@ -55,6 +51,14 @@ public class MedicoController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosDetalhamentoMedico> detalhar(@PathVariable Long id) {
+        var medico = repositorio.findById(id);
+        if (medico.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico.get()));
+    }
 
 
 }
