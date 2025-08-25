@@ -28,7 +28,7 @@ Configuração de diferentes arquivos .properties para ambientes de desenvolvime
 
 Uso de variáveis de ambiente para proteger informações sensíveis.
 
-Tecnologias Utilizadas
+# Tecnologias Utilizadas
 
 Java 17
 
@@ -50,7 +50,7 @@ JUnit, MockMvc e JacksonTester (Testes)
 
 Aprendizados
 
-Durante o curso, praticamos:
+# Durante o curso, pratiquei:
 
 Criação de uma API do zero usando Spring Initializr.
 
@@ -64,7 +64,8 @@ Aplicação de testes automatizados em diferentes camadas da aplicação.
 
 Preparação da aplicação para deploy em produção com perfis e variáveis de ambiente.
 
-Como Rodar o Projeto
+# Como Rodar o Projeto
+´´´
 1. Clonar o Repositório
 git clone https://github.com/MartnsDev/voll_med.git
 cd Vollmed_API
