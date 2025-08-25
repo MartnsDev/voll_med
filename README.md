@@ -1,5 +1,4 @@
-# Vollmed_API
-
+# Vollmed_api
 Projeto desenvolvido durante a formação de Spring Boot na Alura, onde praticamos e aprofundamos diversos recursos do framework no desenvolvimento de APIs Java. Este repositório reúne exercícios e implementações feitas ao longo do curso, incluindo funcionalidades, testes e documentação da API.
 
 ## Sobre o Projeto
