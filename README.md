@@ -40,10 +40,6 @@ Uso de variáveis de ambiente para proteger informações sensíveis.
 - SpringDoc + Swagger (documentação)
 - JUnit, MockMvc e JacksonTester (testes)
 
-
-JUnit, MockMvc e JacksonTester (Testes)
-
-
 ## Aprendizados
 
 Durante o curso, praticamos:
