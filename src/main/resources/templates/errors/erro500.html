@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Erro 500</title>
+</head>
+<body>
+<h1>Ocorreu um erro interno no servidor</h1>
+<p>Possíveis causas: falha temporária, manutenção ou erro inesperado.</p>
+<p>Tente novamente mais tarde ou contate o suporte:
+    <a href="mailto:suporte@seudominio.com">suporte@seudominio.com</a>
+</p>
+<p th:if="${mensagem != null}">Detalhes: <span th:text="${mensagem}"></span></p>
+</body>
+</html>
