@@ -28,41 +28,33 @@ Configuração de diferentes arquivos .properties para ambientes de desenvolvime
 
 Uso de variáveis de ambiente para proteger informações sensíveis.
 
-# Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
-Java 17
+- Java 17
+- Spring Boot
+- Spring Data JPA
+- Flyway (migrations)
+- Bean Validation (validações)
+- Maven (build e dependências)
+- MySQL (banco de dados)
+- SpringDoc + Swagger (documentação)
+- JUnit, MockMvc e JacksonTester (testes)
 
-Spring Boot
-
-Spring Data JPA
-
-Flyway (migrations)
-
-Bean Validation (Validações)
-
-Maven (Build e Dependências)
-
-MySQL (Banco de Dados)
-
-SpringDoc + Swagger (Documentação)
 
 JUnit, MockMvc e JacksonTester (Testes)
 
-Aprendizados
 
-# Durante o curso, pratiquei:
+## Aprendizados
 
-Criação de uma API do zero usando Spring Initializr.
+Durante o curso, praticamos:
 
-Implementação de CRUD completo.
+- Criação de uma API do zero usando Spring Initializr.
+- Implementação de CRUD completo.
+- Controle do histórico do banco de dados com Flyway.
+- Boas práticas de arquitetura e manutenção de código limpo.
+- Aplicação de testes automatizados em diferentes camadas da aplicação.
+- Preparação da aplicação para deploy em produção com perfis e variáveis de ambiente.
 
-Controle do histórico do banco de dados com Flyway.
-
-Boas práticas de arquitetura e manutenção de código limpo.
-
-Aplicação de testes automatizados em diferentes camadas da aplicação.
-
-Preparação da aplicação para deploy em produção com perfis e variáveis de ambiente.
 
 # Como Rodar o Projeto
 
