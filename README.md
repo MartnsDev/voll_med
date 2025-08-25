@@ -65,12 +65,12 @@ Aplicação de testes automatizados em diferentes camadas da aplicação.
 Preparação da aplicação para deploy em produção com perfis e variáveis de ambiente.
 
 # Como Rodar o Projeto
-´´´
+
 1. Clonar o Repositório
 git clone https://github.com/MartnsDev/voll_med.git
 cd Vollmed_API
 
-2. Configurar Variáveis de Ambiente
+## 2. Configurar Variáveis de Ambiente
 
 Crie um arquivo .env (ou configure diretamente no terminal) com as variáveis do banco de dados:
 
