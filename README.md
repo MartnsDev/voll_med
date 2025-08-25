@@ -1,8 +1,8 @@
-Vollmed_API
+# Vollmed_API
 
 Projeto desenvolvido durante a formação de Spring Boot na Alura, onde praticamos e aprofundamos diversos recursos do framework no desenvolvimento de APIs Java. Este repositório reúne exercícios e implementações feitas ao longo do curso, incluindo funcionalidades, testes e documentação da API.
 
-Sobre o Projeto
+# Sobre o Projeto
 
 A Vollmed_API é uma aplicação de gerenciamento de consultas médicas, que permite agendamento, cancelamento e listagem de consultas, além de demonstrar boas práticas de arquitetura e padrões de desenvolvimento em Java com Spring Boot.
 
@@ -14,7 +14,7 @@ Validações: Criação de validadores customizados para evitar que a classe Ser
 
 Documentação de API: Integração com SpringDoc e Swagger, permitindo simular requisições, adicionar cabeçalhos JWT e fornecer documentação acessível para equipes de front-end e mobile.
 
-Testes Automatizados:
+# Testes Automatizados:
 
 Testes de Repository usando banco de dados real (MySQL) em ambiente isolado com profiles específicos.
 
@@ -66,7 +66,7 @@ Preparação da aplicação para deploy em produção com perfis e variáveis de
 
 Como Rodar o Projeto
 1. Clonar o Repositório
-git clone https://github.com/seu-usuario/Vollmed_API.git
+git clone https://github.com/MartnsDev/voll_med.git
 cd Vollmed_API
 
 2. Configurar Variáveis de Ambiente
