@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VollMed API - Médicos Disponíveis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="src/css/index.css">
+</head>
+<body>
+<div class="dashboard">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo"><i class="fas fa-stethoscope"></i></div>
+            <div class="logo-text">VollMed</div>
+        </div>
+        <ul class="menu">
+            <li class="menu-item"><a href="/dashboard.html" class="menu-link"><span class="menu-icon"><i class="fas fa-home"></i></span><span class="menu-text">Dashboard</span></a></li>
+            <li class="menu-item"><a href="cadastrarMedicos.html" class="menu-link"><span class="menu-icon"><i class="fas fa-user-md"></i></span><span class="menu-text">Cadastrar Médico</span></a></li>
+            <li class="menu-item"><a href="cadastrarPacientes.html" class="menu-link"><span class="menu-icon"><i class="fas fa-user"></i></span><span class="menu-text">Cadastrar Paciente</span></a></li>
+            <li class="menu-item"><a href="agendarConsultas.html" class="menu-link"><span class="menu-icon"><i class="fas fa-calendar-plus"></i></span><span class="menu-text">Agendar Consulta</span></a></li>
+            <li class="menu-item"><a href="medicosDisponiveis.html" class="menu-link active"><span class="menu-icon"><i class="fas fa-stethoscope"></i></span><span class="menu-text">Médicos Disponíveis</span></a></li>
+            <li class="menu-item"><a href="pacientesDisponiveis.html" class="menu-link"><i class="fas fa-users"></i> Pacientes Disponíveis</a></li>
+            <li class="menu-item"><a href="minhasConsultas.html" class="menu-link"><span class="menu-icon"><i class="fas fa-calendar-check"></i></span><span class="menu-text">Minhas Consultas</span></a></li>
+            <li class="menu-item"><a href="suporte.html" class="menu-link"><span class="menu-icon"><i class="fas fa-cog"></i></span><span class="menu-text">Suporte</span></a></li>
+        </ul>
+        <div class="toggle-btn" id="sidebarToggle"><i class="fas fa-chevron-right"></i></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <nav class="navbar">
+            <div class="navbar-left"><h1 class="navbar-title">Médicos Disponíveis</h1></div>
+            <div class="navbar-right">
+                <div class="user-profile">
+                    <div class="user-img">VOLL</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userNome"></div>
+                        <div class="user-role" id="userEmail"></div>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Sair</button>
+            </div>
+        </nav>
+
+        <div class="content">
+            <!-- Filtros -->
+            <div class="grid">
+                <div class="col-span-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Filtros de Busca</div>
+                            <div class="card-icon"><i class="fas fa-filter"></i></div>
+                        </div>
+                        <div class="weather-info" style="display: flex; gap: 20px; align-items: end;">
+                            <div class="weather-detail">
+                                <div class="weather-detail-text">Especialidade</div>
+                                <select id="filtroEspecialidade" class="weather-detail-value">
+                                    <option value="">Todas as especialidades</option>
+                                    <option value="CARDIOLOGIA">Cardiologia</option>
+                                    <option value="DERMATOLOGIA">Dermatologia</option>
+                                    <option value="GINECOLOGIA">Ginecologia</option>
+                                    <option value="ORTOPEDIA">Ortopedia</option>
+                                </select>
+                            </div>
+                            <div class="weather-detail">
+                                <button id="buscarMedicosBtn" class="btn btn-primary"><i class="fas fa-search"></i> Buscar Médicos</button>
+                            </div>
+                            <div class="weather-detail">
+                                <button id="limparFiltroBtn" class="btn btn-secondary"><i class="fas fa-times"></i> Limpar Filtro</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de Médicos -->
+            <div class="grid">
+                <div class="col-span-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Médicos Cadastrados</div>
+                            <div class="card-icon"><i class="fas fa-stethoscope"></i></div>
+                        </div>
+                        <div id="medicosStatus" class="weather-detail-text" style="text-align: center; padding: 20px;">Carregando médicos...</div>
+                        <div class="weather-info" id="medicos-lista" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>© 2025 VollMed API. Todos os direitos reservados.</div>
+            <div>
+                <a href="#" class="footer-link">Termos de Uso</a>
+                <a href="#" class="footer-link">Política de Privacidade</a>
+                <a href="#" class="footer-link">Contato</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    if (!token) { 
+        alert("Você precisa estar logado!"); 
+        window.location.href = "index.html"; 
+        return; 
+    }
+
+    document.getElementById("userNome").textContent = localStorage.getItem("userNome") || "Usuário";
+    document.getElementById("userEmail").textContent = localStorage.getItem("userEmail") || "";
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.clear();
+        window.location.href="index.html";
+    });
+
+    carregarMedicos();
+
+    document.getElementById("buscarMedicosBtn").addEventListener("click", () => {
+        const esp = document.getElementById("filtroEspecialidade").value;
+        carregarMedicos(esp);
+    });
+
+    document.getElementById("limparFiltroBtn").addEventListener("click", () => {
+        document.getElementById("filtroEspecialidade").selectedIndex = 0;
+        carregarMedicos();
+    });
+});
+
+async function carregarMedicos(especialidade='') {
+    const statusEl = document.getElementById("medicosStatus");
+    const listaEl = document.getElementById("medicos-lista");
+    statusEl.textContent = "Carregando médicos...";
+    statusEl.style.color = "blue";
+    listaEl.style.display = "none";
+
+    try {
+        let url = "http://localhost:8080/medicos";
+        if (especialidade) url += `?especialidade=${especialidade}`;
+
+        const token = localStorage.getItem("token");
+        const res = await fetch(url, { method: 'GET', headers: { 'Authorization': `Bearer ${token}` } });
+        const text = await res.text();
+        const data = text.trim().startsWith("{") ? JSON.parse(text) : [];
+
+        let medicos = data.content || data || [];
+
+        if (medicos.length > 0) { 
+            popularMedicos(medicos); 
+            statusEl.style.display = "none"; 
+            listaEl.style.display = "block"; 
+        } else { 
+            statusEl.textContent = especialidade ? `Nenhum médico encontrado para ${especialidade}` : "Nenhum médico cadastrado"; 
+            statusEl.style.color = "orange"; 
+        }
+    } catch (e) { 
+        statusEl.textContent = "Erro de conexão: " + e.message; 
+        statusEl.style.color = "red"; 
+    }
+}
+
+function popularMedicos(medicos) {
+    const container = document.getElementById("medicos-lista");
+    container.innerHTML = '';
+
+    medicos.forEach(m => {
+        const card = document.createElement('div');
+        card.innerHTML = `
+            <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px; border-radius:5px;">
+                <h3>${m.nome} <span style="color:green; font-weight:bold;">Ativo</span></h3>
+                <p><strong>CRM:</strong> ${m.crm} | <strong>Especialidade:</strong> ${m.especialidade}</p>
+                <p><i class="fas fa-envelope"></i> ${m.email} | <i class="fas fa-phone"></i> ${m.telefone}</p>
+                ${m.endereco ? `<p><i class="fas fa-map-marker-alt"></i> ${m.endereco.logradouro}, ${m.endereco.numero} - ${m.endereco.bairro}, ${m.endereco.cidade}/${m.endereco.uf}</p>` : ''}
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+</script>
+<script src="src/js/Sair.jss"></script>
+</body>
+</html>

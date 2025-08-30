@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>VollMed - Login/Cadastro</title>
+    <link rel="stylesheet" href="public/src/css/style.css">
+    
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <form id="loginForm" class="active">
+            <h3>Login</h3>
+            <input type="email" id="login" placeholder="Email" required>
+            <input type="password" id="senha" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+            <p class="link" id="showCadastro">Criar Conta</p>
+        </form>
+
+        <!-- Cadastro Form -->
+        <form id="cadastroForm">
+            <h3>Cadastro</h3>
+            <input type="email" id="novoLogin" placeholder="Email" required>
+            <input type="password" id="novaSenha" placeholder="Senha" required>
+            <button type="submit">Cadastrar</button>
+            <p class="link" id="showLogin">Já tem conta? Login</p>
+        </form>
+
+        <p id="error" class="error"></p>
+        <p id="success" class="success"></p>
+    </div>
+
+    <script src="public/src/js/auth.js"></script>
+</body>
+</html>

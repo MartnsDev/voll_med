@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ativar Médico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="src/css/index.css">
+</head>
+<body>
+    <div class="container" style="max-width:500px;margin:50px auto;text-align:center;">
+        <h2>Ativar Médico</h2>
+        <p>Informe o ID do médico que deseja ativar:</p>
+        <input type="number" id="medicoId" placeholder="ID do Médico" style="padding:10px;width:80%;margin-bottom:15px;">
+        <br>
+        <button id="ativarBtn" class="btn btn-success" style="padding:10px 20px;">
+            <i class="fas fa-user-check"></i> Ativar
+        </button>
+        <p id="statusMsg" style="margin-top:20px;"></p>
+    </div>
+
+<script>
+document.getElementById("ativarBtn").addEventListener("click", async () => {
+    const id = document.getElementById("medicoId").value.trim();
+    const statusMsg = document.getElementById("statusMsg");
+
+    if (!id) {
+        statusMsg.textContent = "Informe um ID válido!";
+        statusMsg.style.color = "red";
+        return;
+    }
+
+    const token = localStorage.getItem("token") || "";
+
+    try {
+        const response = await fetch(`http://localhost:8080/medicos/${id}/ativar`, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            credentials: "include"
+        });
+
+        if (response.ok) {
+            statusMsg.textContent = `Médico com ID ${id} ativado com sucesso!`;
+            statusMsg.style.color = "green";
+        } else {
+            const erro = await response.text();
+            statusMsg.textContent = `Erro: ${erro}`;
+            statusMsg.style.color = "red";
+        }
+    } catch (err) {
+        console.error(err);
+        statusMsg.textContent = "Erro ao ativar: " + err.message;
+        statusMsg.style.color = "red";
+    }
+});
+</script>
+</body>
+</html>

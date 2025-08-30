@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VollMed API - Agendar Consulta</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+<link rel="stylesheet" href="src/css/index.css">
+</head>
+<body>
+<div class="dashboard">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo"><i class="fas fa-calendar-plus"></i></div>
+            <div class="logo-text">VollMed</div>
+        </div>
+        <ul class="menu">
+            <li class="menu-item"><a href="/dashboard.html" class="menu-link"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li class="menu-item"><a href="cadastrarMedicos.html" class="menu-link"><i class="fas fa-user-md"></i> Cadastrar Médico</a></li>
+            <li class="menu-item"><a href="cadastrarPacientes.html" class="menu-link"><i class="fas fa-user"></i> Cadastrar Paciente</a></li>
+            <li class="menu-item"><a href="agendarConsultas.html" class="menu-link active"><i class="fas fa-calendar-plus"></i> Agendar Consulta</a></li>
+            <li class="menu-item"><a href="medicosDisponiveis.html" class="menu-link"><i class="fas fa-stethoscope"></i> Médicos Disponíveis</a></li>
+            <li class="menu-item"><a href="pacientesDisponiveis.html" class="menu-link"><i class="fas fa-users"></i> Pacientes Disponíveis</a></li>
+            <li class="menu-item"><a href="minhasConsultas.html" class="menu-link"><i class="fas fa-calendar-check"></i> Minhas Consultas</a></li>
+            <li class="menu-item"><a href="suporte.html" class="menu-link"><i class="fas fa-cog"></i> Suporte</a></li>
+        </ul>
+        <div class="toggle-btn" id="sidebarToggle"><i class="fas fa-chevron-right"></i></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <nav class="navbar">
+            <div class="navbar-left"><h1 class="navbar-title">Agendar Consulta</h1></div>
+            <div class="navbar-right">
+                <div class="user-profile">
+                    <div class="user-img">VOLL</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userNome"></div>
+                        <div class="user-role" id="userEmail"></div>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Sair</button>
+            </div>
+        </nav>
+
+        <div class="content">
+            <!-- Formulário -->
+            <div class="grid" id="consultaFormGrid">
+                <div class="col-span-6">
+                    <div class="card">
+                        <div class="card-header"><div class="card-title">Informações da Consulta</div></div>
+                        <div class="weather-info">
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-user"></i></div>
+                                <div class="weather-detail-text">ID do Paciente</div>
+                                <input type="number" id="consultaIdPaciente" class="weather-detail-value" placeholder="Digite o ID do paciente">
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-user-md"></i></div>
+                                <div class="weather-detail-text">Médico (opcional)</div>
+                                <input type="number" id="consultaIdMedico" class="weather-detail-value" placeholder="Digite o ID do médico">
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-stethoscope"></i></div>
+                                <div class="weather-detail-text">Especialidade</div>
+                                <select id="consultaEspecialidade" class="weather-detail-value">
+                                    <option value="">Selecione a especialidade</option>
+                                    <option value="CARDIOLOGIA">Cardiologia</option>
+                                    <option value="DERMATOLOGIA">Dermatologia</option>
+                                    <option value="GINECOLOGIA">Ginecologia</option>
+                                    <option value="ORTOPEDIA">Ortopedia</option>
+                                </select>
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-calendar"></i></div>
+                                <div class="weather-detail-text">Data e Hora</div>
+                                <input type="datetime-local" id="consultaData" class="weather-detail-value" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-6">
+                    <div class="card">
+                        <div class="card-header"><div class="card-title">Status</div></div>
+                        <div class="weather-info">
+                            <div id="consultaMsg" class="weather-detail-text"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-12">
+                    <div class="card">
+                        <div class="card-header"><div class="card-title">Ações</div></div>
+                        <div class="weather-info" style="display: flex; gap: 20px; justify-content: center;">
+                            <button id="agendarConsultaBtn" class="btn btn-primary"><i class="fas fa-save"></i> Agendar Consulta</button>
+                            <button class="btn btn-secondary" onclick="limparFormulario()"><i class="fas fa-eraser"></i> Limpar Formulário</button>
+                            <button class="btn btn-tertiary" onclick="voltarDashboard()"><i class="fas fa-arrow-left"></i> Voltar ao Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card de Sucesso -->
+            <div id="successCard" style="display:none; text-align:center; padding:40px; border:2px solid #4CAF50; border-radius:8px; background-color:#e6ffe6; margin-top:50px;">
+                <h2 style="color:#4CAF50; margin-bottom:20px;">Agendada com Sucesso!</h2>
+                <button style="padding:10px 20px; font-size:16px; cursor:pointer; background-color:#4CAF50; color:white; border:none; border-radius:5px;" onclick="voltarDashboard()">OK</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>© 2025 VollMed API. Todos os direitos reservados.</div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById("userNome").textContent = localStorage.getItem("userNome") || "";
+document.getElementById("userEmail").textContent = localStorage.getItem("userEmail") || "";
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userNome");
+    localStorage.removeItem("userEmail");
+    window.location.href = "index.html";
+});
+
+document.getElementById("agendarConsultaBtn").addEventListener("click", agendarConsulta);
+
+function limparFormulario() {
+    document.getElementById("consultaIdPaciente").value = "";
+    document.getElementById("consultaIdMedico").value = "";
+    document.getElementById("consultaEspecialidade").value = "";
+    document.getElementById("consultaData").value = "";
+    document.getElementById("consultaMsg").textContent = "";
+}
+
+function voltarDashboard() {
+    window.location.href = "/dashboard.html";
+}
+
+async function agendarConsulta() {
+    const msg = document.getElementById("consultaMsg");
+    msg.textContent = ""; 
+    msg.style.fontWeight = "bold";
+
+    const idPaciente = document.getElementById("consultaIdPaciente").value;
+    const idMedico = document.getElementById("consultaIdMedico").value;
+    const especialidade = document.getElementById("consultaEspecialidade").value;
+    const dataConsulta = document.getElementById("consultaData").value;
+
+    if(!idPaciente){ msg.textContent="Informe o ID do paciente!"; msg.style.color="red"; return; }
+    if(!especialidade){ msg.textContent="Selecione uma especialidade!"; msg.style.color="red"; return; }
+    if(!dataConsulta){ msg.textContent="Informe a data e hora!"; msg.style.color="red"; return; }
+
+    const consulta = {
+        idPaciente: parseInt(idPaciente),
+        idMedico: idMedico ? parseInt(idMedico) : null,
+        especialidade: especialidade,
+        data: dataConsulta
+    };
+
+    const token = localStorage.getItem("token");
+    if(!token) {
+        msg.textContent = "❌ Você precisa estar logado!";
+        msg.style.color = "red";
+        return;
+    }
+
+    try {
+        msg.textContent="Agendando consulta..."; 
+        msg.style.color="blue";
+
+        const res = await fetch("http://localhost:8080/consultas", {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(consulta)
+        });
+
+        if(res.ok){
+            // Oculta o formulário
+            document.getElementById("consultaFormGrid").style.display = "none";
+            // Mostra card de sucesso
+            document.getElementById("successCard").style.display = "block";
+        } else {
+            const data = await res.json().catch(()=>({erro: "Erro ao agendar"}));
+            msg.textContent = "❌ " + (data.erro || "Erro ao agendar"); 
+            msg.style.color="red";
+        }
+    } catch(e){
+        msg.textContent="❌ Erro de conexão: "+e.message; 
+        msg.style.color="red";
+        console.error("Erro completo:", e);
+    }
+}
+</script>
+<script src="src/js/Sair.jss"></script>
+</body>
+</html>

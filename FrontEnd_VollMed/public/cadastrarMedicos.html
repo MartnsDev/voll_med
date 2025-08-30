@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VollMed API - Cadastro de Médico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="src/css/index.css">
+</head>
+<body>
+<div class="dashboard">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo"><i class="fas fa-user-md"></i></div>
+            <div class="logo-text">VollMed</div>
+        </div>
+        <ul class="menu">
+            <li class="menu-item"><a href="/dashboard.html" class="menu-link"><span class="menu-icon"><i class="fas fa-home"></i></span><span class="menu-text">Dashboard</span></a></li>
+            <li class="menu-item"><a href="cadastrarMedicos.html" class="menu-link active"><span class="menu-icon"><i class="fas fa-user-md"></i></span><span class="menu-text">Cadastrar Médico</span></a></li>
+            <li class="menu-item"><a href="cadastrarPacientes.html" class="menu-link"><span class="menu-icon"><i class="fas fa-user"></i></span><span class="menu-text">Cadastrar Paciente</span></a></li>
+            <li class="menu-item"><a href="agendarConsultas.html" class="menu-link"><span class="menu-icon"><i class="fas fa-calendar-plus"></i></span><span class="menu-text">Agendar Consulta</span></a></li>
+            <li class="menu-item"><a href="medicosDisponiveis.html" class="menu-link"><span class="menu-icon"><i class="fas fa-stethoscope"></i></span><span class="menu-text">Médicos Disponíveis</span></a></li>
+            <li class="menu-item"><a href="pacientesDisponiveis.html" class="menu-link"><i class="fas fa-users"></i> Pacientes Disponíveis</a></li>
+            <li class="menu-item"><a href="minhasConsultas.html" class="menu-link"><span class="menu-icon"><i class="fas fa-calendar-check"></i></span><span class="menu-text">Minhas Consultas</span></a></li>
+            <li class="menu-item"><a href="suporte.html" class="menu-link"><span class="menu-icon"><i class="fas fa-cog"></i></span><span class="menu-text">Suporte</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+          <!-- Navbar -->
+      <nav class="navbar">
+        <div class="navbar-left">
+          <h1 class="navbar-title">Dashboard</h1>
+        </div>
+        <div class="navbar-right">
+          <div class="user-profile">
+            <div class="user-img">VOLL</div>
+            <div class="user-info">
+              <div class="user-name" id="userNome"></div>
+              <div class="user-role" id="userEmail"></div>
+            </div>
+          </div>
+          <button id="logoutBtn" class="btn btn-danger" aria-label="Sair do sistema">
+            <i class="fas fa-sign-out-alt"></i> Sair
+          </button>
+        </div>
+      </nav>
+
+
+        <div class="content">
+            <div class="grid">
+                <!-- Informações do Médico -->
+                <div class="col-span-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Informações Pessoais</div>
+                            <div class="card-icon"><i class="fas fa-user-md"></i></div>
+                        </div>
+                        <div class="weather-info">
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-user"></i></div>
+                                <div class="weather-detail-text">Nome</div>
+                                <input type="text" id="medicoNome" placeholder="Digite o nome completo" class="weather-detail-value">
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-envelope"></i></div>
+                                <div class="weather-detail-text">Email</div>
+                                <input type="email" id="medicoEmail" placeholder="Digite o email" class="weather-detail-value">
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-phone"></i></div>
+                                <div class="weather-detail-text">Telefone</div>
+                                <input type="tel" id="medicoTelefone" placeholder="(11) 99999-9999" class="weather-detail-value">
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-id-card"></i></div>
+                                <div class="weather-detail-text">CRM</div>
+                                <input type="text" id="medicoCRM" placeholder="000000" class="weather-detail-value">
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-briefcase-medical"></i></div>
+                                <div class="weather-detail-text">Especialidade</div>
+                                <select id="medicoEspecialidade" class="weather-detail-value">
+                                    <option value="">Selecione</option>
+                                    <option value="CARDIOLOGIA">Cardiologia</option>
+                                    <option value="DERMATOLOGIA">Dermatologia</option>
+                                    <option value="ORTOPEDIA">Ortopedia</option>
+                                    <option value="GINECOLOGIA">Ginecologia</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Endereço -->
+                <div class="col-span-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Endereço</div>
+                            <div class="card-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        </div>
+                        <div class="weather-info" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-road"></i></div>
+                                <div class="weather-detail-text">Logradouro</div>
+                                <input type="text" id="medicoLogradouro" placeholder="Rua, Avenida..." class="weather-detail-value">
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-hashtag"></i></div>
+                                <div class="weather-detail-text">Número</div>
+                                <input type="text" id="medicoNumero" placeholder="123" class="weather-detail-value">
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-building"></i></div>
+                                <div class="weather-detail-text">Complemento</div>
+                                <input type="text" id="medicoComplemento" placeholder="Apt, Sala..." class="weather-detail-value">
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-map"></i></div>
+                                <div class="weather-detail-text">Bairro</div>
+                                <input type="text" id="medicoBairro" placeholder="Nome do bairro" class="weather-detail-value">
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-city"></i></div>
+                                <div class="weather-detail-text">Cidade</div>
+                                <input type="text" id="medicoCidade" placeholder="Nome da cidade" class="weather-detail-value">
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-map-pin"></i></div>
+                                <div class="weather-detail-text">UF</div>
+                                <input type="text" id="medicoUF" placeholder="SP" class="weather-detail-value">
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-icon"><i class="fas fa-mail-bulk"></i></div>
+                                <div class="weather-detail-text">CEP</div>
+                                <input type="text" id="medicoCEP" placeholder="00000-000" class="weather-detail-value">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ações -->
+                <div class="col-span-12">
+                    <div class="card">
+                        <div class="card-header"><div class="card-title">Ações</div></div>
+                        <div class="weather-info" style="display: flex; gap: 20px; justify-content: center;">
+                            <button id="cadastrarMedicoBtn" class="btn btn-primary"><i class="fas fa-save"></i> Cadastrar Médico</button>
+                            <button class="btn btn-secondary" onclick="limparFormulario()"><i class="fas fa-eraser"></i> Limpar Formulário</button>
+                            <button class="btn btn-tertiary" onclick="voltarDashboard()"><i class="fas fa-arrow-left"></i> Voltar ao Dashboard</button>
+                        </div>
+                        <div id="medicoMsg" style="text-align:center; margin-top:10px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>© 2025 VollMed API. Todos os direitos reservados.</div>
+        </div>
+    </div>
+</div>
+
+<script>
+async function postData(url = '', data = {}) {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("Usuário não está logado");
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    });
+}
+
+async function handleResponse(res) {
+    const text = await res.text();
+    let data;
+    try { data = JSON.parse(text); } catch { data = { mensagem: text || "Erro desconhecido" }; }
+    return { ok: res.ok, data };
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    if (!token) { alert("Você precisa estar logado!"); window.location.href = "index.html"; return; }
+
+    const cadastrarMedicoBtn = document.getElementById("cadastrarMedicoBtn");
+    if (cadastrarMedicoBtn) {
+        cadastrarMedicoBtn.addEventListener("click", async () => {
+            const msg = document.getElementById("medicoMsg");
+            if (msg) msg.textContent = "";
+
+            const medico = {
+                nome: document.getElementById("medicoNome")?.value || "",
+                email: document.getElementById("medicoEmail")?.value || "",
+                telefone: document.getElementById("medicoTelefone")?.value || "",
+                crm: document.getElementById("medicoCRM")?.value || "",
+                especialidade: document.getElementById("medicoEspecialidade")?.value || "",
+                endereco: {
+                    logradouro: document.getElementById("medicoLogradouro")?.value || "",
+                    bairro: document.getElementById("medicoBairro")?.value || "",
+                    cep: document.getElementById("medicoCEP")?.value || "",
+                    cidade: document.getElementById("medicoCidade")?.value || "",
+                    uf: document.getElementById("medicoUF")?.value || "",
+                    numero: document.getElementById("medicoNumero")?.value || "",
+                    complemento: document.getElementById("medicoComplemento")?.value || ""
+                }
+            };
+
+            try {
+                const res = await postData("http://localhost:8080/medicos", medico);
+                const { ok, data } = await handleResponse(res);
+
+                if (msg) {
+                    msg.textContent = ok ? "Médico cadastrado com sucesso!" : data.erro || data.mensagem || "Erro ao cadastrar médico.";
+                    msg.className = ok ? "success" : "error";
+                }
+            } catch (e) {
+                if (msg) {
+                    msg.textContent = e.message || "Erro ao cadastrar médico.";
+                    msg.className = "error";
+                }
+                console.error(e);
+            }
+        });
+    }
+});
+
+function limparFormulario() {
+    document.querySelectorAll("input, select").forEach(i => i.value = "");
+}
+
+function voltarDashboard() {
+    window.location.href = "/dashboard.html";
+}
+
+function sair() {
+    localStorage.clear();
+    window.location.href = "/index.html";
+}
+</script>
+
+<script src="src/js/Sair.js"></script>
+</body>
+</html>

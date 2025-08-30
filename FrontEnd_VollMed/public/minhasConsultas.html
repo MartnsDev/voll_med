@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VollMed API - Minhas Consultas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="src/css/index.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo"><i class="fas fa-user-md"></i></div>
+                <div class="logo-text">VollMed</div>
+            </div>
+            <ul class="menu">
+                <li><a href="/dashboard.html" class="menu-link"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="cadastrarMedicos.html" class="menu-link"><i class="fas fa-user-md"></i> Cadastrar Médico</a></li>
+                <li><a href="cadastrarPacientes.html" class="menu-link"><i class="fas fa-user"></i> Cadastrar Paciente</a></li>
+                <li><a href="agendarConsultas.html" class="menu-link"><i class="fas fa-calendar-plus"></i> Agendar Consulta</a></li>
+                <li><a href="medicosDisponiveis.html" class="menu-link"><i class="fas fa-stethoscope"></i> Médicos Disponíveis</a></li>
+                <li><a href="pacientesDisponiveis.html" class="menu-link"><i class="fas fa-users"></i> Pacientes Disponíveis</a></li>
+                <li><a href="minhasConsultas.html" class="menu-link active"><i class="fas fa-calendar-check"></i> Minhas Consultas</a></li>
+                <li><a href="suporte.html" class="menu-link"><i class="fas fa-cog"></i> Suporte</a></li>
+            </ul>
+            <div class="toggle-btn" id="sidebarToggle"><i class="fas fa-chevron-right"></i></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <nav class="navbar">
+                <div class="navbar-left"><h1 class="navbar-title">Todas as Consultas</h1></div>
+                <div class="navbar-right">
+                    <div class="user-profile">
+                        <div class="user-img">VOLL</div>
+                        <div class="user-info">
+                            <div class="user-name" id="userNome"></div>
+                            <div class="user-role" id="userEmail"></div>
+                        </div>
+                    </div>
+                    <button id="logoutBtn" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                </div>
+            </nav>
+
+            <div class="content">
+                <!-- Filtros -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Filtros de Busca</div>
+                        <div class="card-icon"><i class="fas fa-filter"></i></div>
+                    </div>
+                    <div class="weather-info" style="display:flex;gap:20px;align-items:end;">
+                        <div>
+                            <div>Status da Consulta</div>
+                            <select id="filtroStatus">
+                                <option value="">Todas</option>
+                                <option value="AGENDADA">Agendadas</option>
+                                <option value="CANCELADA">Canceladas</option>
+                                <option value="REALIZADA">Realizadas</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div>Data</div>
+                            <input type="date" id="filtroData">
+                        </div>
+                        <div>
+                            <button id="buscarConsultasBtn" class="btn btn-primary"><i class="fas fa-search"></i> Buscar</button>
+                        </div>
+                        <div>
+                            <button id="limparFiltroBtn" class="btn btn-secondary"><i class="fas fa-times"></i> Limpar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lista de Consultas -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Todas as Consultas</div>
+                        <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
+                    </div>
+                    <div id="consultasStatus" style="text-align:center;padding:20px;">Carregando consultas...</div>
+                    <div class="weather-info" id="consultas-lista" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Você precisa estar logado!");
+        window.location.href = "index.html";
+        return;
+    }
+
+    document.getElementById("userNome").textContent = localStorage.getItem("userNome") || "Usuário";
+    document.getElementById("userEmail").textContent = localStorage.getItem("userEmail") || "";
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.clear();
+        window.location.href = "index.html";
+    });
+
+    document.getElementById("buscarConsultasBtn").addEventListener("click", () => {
+        carregarMinhasConsultas(
+            document.getElementById("filtroStatus").value,
+            document.getElementById("filtroData").value
+        );
+    });
+
+    document.getElementById("limparFiltroBtn").addEventListener("click", () => {
+        document.getElementById("filtroStatus").selectedIndex = 0;
+        document.getElementById("filtroData").value = '';
+        carregarMinhasConsultas();
+    });
+
+    carregarMinhasConsultas();
+});
+
+async function carregarMinhasConsultas(status='', data='') {
+    const statusEl = document.getElementById("consultasStatus");
+    const listaEl = document.getElementById("consultas-lista");
+
+    statusEl.textContent = "Carregando consultas...";
+    statusEl.style.color = "blue";
+    statusEl.style.display = "block";
+    listaEl.style.display = "none";
+
+    try {
+        const token = (localStorage.getItem("token") || "").trim();
+        const response = await fetch("http://localhost:8080/consultas", {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            if (response.status === 403) throw new Error("Acesso negado. Token inválido ou expirado.");
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+
+        const dataResponse = await response.json();
+        let consultas = dataResponse.content || dataResponse || [];
+
+        if (status) consultas = consultas.filter(c => c.status === status);
+        if (data) consultas = consultas.filter(c => new Date(c.data).toISOString().split('T')[0] === data);
+
+        if (consultas.length === 0) {
+            statusEl.textContent = status || data ? "Nenhuma consulta encontrada com os filtros aplicados." : "Nenhuma consulta cadastrada.";
+            statusEl.style.color = "orange";
+            return;
+        }
+
+        popularConsultas(consultas);
+        statusEl.style.display = "none";
+        listaEl.style.display = "block";
+
+    } catch (error) {
+        console.error(error);
+        statusEl.textContent = "Erro ao carregar consultas: " + error.message;
+        statusEl.style.color = "red";
+    }
+}
+
+function popularConsultas(consultas) {
+    const container = document.getElementById("consultas-lista");
+    container.innerHTML = '';
+
+    consultas.forEach(consulta => {
+        const div = document.createElement('div');
+        div.style.cssText = "border:1px solid #ddd;padding:15px;margin-bottom:15px;border-radius:8px;background:#f9f9f9;";
+
+        const dataFormatada = new Date(consulta.data).toLocaleDateString('pt-BR');
+        const corStatus = consulta.status === 'AGENDADA' ? 'green' :
+                          consulta.status === 'CANCELADA' ? 'red' :
+                          consulta.status === 'REALIZADA' ? 'blue' : 'gray';
+
+        div.innerHTML = `
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                <h3 style="margin:0;color:#333;"><i class="fas fa-calendar-alt"></i> Consulta #${consulta.id}</h3>
+                <span style="color:${corStatus};font-weight:bold;padding:5px 10px;border:1px solid ${corStatus};border-radius:5px;">${consulta.status}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <p><i class="fas fa-user-md"></i> <strong>Médico:</strong> ${consulta.nomeMedico || 'Não informado'}</p>
+                <p><i class="fas fa-user"></i> <strong>Paciente:</strong> ${consulta.nomePaciente || 'Não informado'}</p>
+                <p><i class="fas fa-calendar"></i> <strong>Data:</strong> ${dataFormatada}</p>
+                <p><i class="fas fa-clock"></i> <strong>Horário:</strong> ${consulta.hora || 'Não informado'}</p>
+            </div>
+            ${consulta.especialidade ? `<p><i class="fas fa-stethoscope"></i> <strong>Especialidade:</strong> ${consulta.especialidade}</p>` : ''}
+            ${consulta.motivoCancelamento ? `<p style="color:red;"><i class="fas fa-exclamation-triangle"></i> <strong>Motivo do Cancelamento:</strong> ${consulta.motivoCancelamento}</p>` : ''}
+            <div style="margin-top:10px;text-align:right;">
+                ${consulta.status==='AGENDADA' ? `<button onclick="cancelarConsulta(${consulta.id})" class="btn btn-danger" style="padding:5px 10px;font-size:12px;"><i class="fas fa-times"></i> Cancelar</button>` : ''}
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+async function cancelarConsulta(id) {
+    if (!confirm('Tem certeza que deseja cancelar esta consulta?')) return;
+
+    try {
+        const token = (localStorage.getItem("token") || "").trim();
+        const response = await fetch(`http://localhost:8080/consultas/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({ motivo: 'PACIENTE_DESISTIU' })
+        });
+
+        if (response.ok) {
+            alert('Consulta cancelada com sucesso!');
+            carregarMinhasConsultas();
+        } else {
+            const erro = await response.text();
+            alert('Erro ao cancelar: ' + erro);
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Erro ao cancelar: ' + err.message);
+    }
+}
+</script>
+
+</body>
+</html>
