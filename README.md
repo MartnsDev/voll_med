@@ -30,6 +30,7 @@ Documentação de API: Integração com SpringDoc e Swagger, permitindo simular 
 - MySQL (banco de dados)
 - SpringDoc + Swagger (documentação)
 - JUnit, MockMvc e JacksonTester (testes)
+- Html, Css e Java Script para o FrontEnd
 
 ## Aprendizados
 
