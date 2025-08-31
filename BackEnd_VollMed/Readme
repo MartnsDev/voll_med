@@ -28,4 +28,4 @@ Swagger UI: http://localhost:8080/swagger-ui.html
 
 Endpoints REST: http://localhost:8080/api/...
 
-## Certifique-se de que o MySQL esteja rodando e que o banco vollmed_api exista antes de iniciar a aplicação.
+## Certifique-se de que o MySQL ou o Banco de dados que esteja rodando e que o banco vollmed_api exista antes de iniciar a aplicação.
