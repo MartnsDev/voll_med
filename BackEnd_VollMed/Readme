@@ -1,0 +1,31 @@
+# Como Rodar o Projeto
+
+1. Clonar o Repositório
+git clone https://github.com/MartnsDev/voll_med.git
+cd Vollmed_API
+
+## 2. Configurar Variáveis de Ambiente
+
+Crie um arquivo .env (ou configure diretamente no terminal) com as variáveis do banco de dados:
+
+DATASOURCE_URL=jdbc:mysql://localhost:3306/vollmed_api
+DATASOURCE_USERNAME=root
+DATASOURCE_PASSWORD=sua_senha
+
+## 3. Executar o Projeto
+
+Para rodar a aplicação em modo produção com profile e variáveis de ambiente:
+
+java -Dspring.profiles.active=prod \
+     -DDATASOURCE_URL=jdbc:mysql://localhost:3306/vollmed_api \
+     -DDATASOURCE_USERNAME=root \
+     -DDATASOURCE_PASSWORD=sua_senha \
+     -jar target/api-0.0.1-SNAPSHOT.jar
+
+## 4. Acessar a API
+
+Swagger UI: http://localhost:8080/swagger-ui.html
+
+Endpoints REST: http://localhost:8080/api/...
+
+## Certifique-se de que o MySQL esteja rodando e que o banco vollmed_api exista antes de iniciar a aplicação.
