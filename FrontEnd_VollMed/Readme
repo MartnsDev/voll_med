@@ -1,9 +1,4 @@
-<!doctype html>
-<html lang="pt-br">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Como rodar o Frontend + Configurar CORS (Spring Boot)</title>
+
   <style>
     :root {
       --bg: #0b0f14;
