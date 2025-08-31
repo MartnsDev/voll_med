@@ -39,7 +39,7 @@ Durante o curso, praticamos:
 - Criação de uma API do zero usando Spring Initializr.
 - Implementação de CRUD completo.
 - Controle do histórico do banco de dados com Flyway.
-- Boas práticas de arquitetura e manutenção de código limpo.
+- Boas práticas de arquitetura e manutenção de código limpo (Para Backend).
 - Aplicação de testes automatizados em diferentes camadas da aplicação.
 - Preparação da aplicação para deploy em produção com perfis e variáveis de ambiente.
 
