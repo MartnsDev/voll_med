@@ -22,6 +22,8 @@ java -Dspring.profiles.active=prod \
      -DDATASOURCE_PASSWORD=sua_senha \
      -jar target/api-0.0.1-SNAPSHOT.jar
 
+Após configurar os Dados e criar a database, as tabelas são criadas automaticamente ao rodar o projeto.
+
 ## 4. Acessar a API
 
 Swagger UI: http://localhost:8080/swagger-ui.html
