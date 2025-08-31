@@ -1,60 +1,131 @@
-# Passos para rodar o Frontend
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Como rodar o Frontend + Configurar CORS (Spring Boot)</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card: #111826;
+      --ink: #e7edf3;
+      --muted: #9fb0c0;
+      --accent: #4f8cff;
+      --ok: #22c55e;
+      --warn: #f59e0b;
+      --code: #0b1220;
+      --code-border: #1f2a44;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg); color: var(--ink); line-height: 1.6; }
+    header { padding: 36px 20px 10px; text-align: center; }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    .subtitle { color: var(--muted); font-size: 14px; }
+    main { max-width: 980px; margin: 24px auto 80px; padding: 0 20px; }
+    .card { background: linear-gradient(180deg, var(--card), #0e1623); border: 1px solid #1a2435; border-radius: 16px; padding: 22px; margin-bottom: 18px; box-shadow: 0 6px 18px rgb(0 0 0 / 20%); }
+    h2 { margin: 0 0 12px; font-size: 22px; }
+    h3 { margin-top: 18px; font-size: 18px; }
+    p, li { color: var(--ink); }
+    .muted { color: var(--muted); }
+    .kbd { background: #0f172a; border: 1px solid #23304e; padding: 2px 6px; border-radius: 6px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
+    pre { background: var(--code); border: 1px solid var(--code-border); border-radius: 12px; padding: 14px; overflow: auto; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 13px; }
+    .toc a { color: var(--ink); text-decoration: none; }
+    .toc a:hover { color: var(--accent); }
+    a { color: var(--accent); }
+    .tip { border-left: 4px solid var(--ok); padding: 12px; background: #0c1a12; border-radius: 8px; }
+    .warn { border-left: 4px solid var(--warn); padding: 12px; background: #1a1508; border-radius: 8px; }
+    details { background: #0f172a; border: 1px solid #223153; border-radius: 10px; padding: 12px 14px; }
+    summary { cursor: pointer; }
+    .hr { height: 1px; background: #1a2435; margin: 18px 0; }
+    .inline-code { background: #0f172a; border: 1px solid #23304e; padding: 2px 6px; border-radius: 6px; }
+    .pill { display: inline-block; font-size: 12px; border: 1px solid #23304e; background: #0f172a; padding: 2px 8px; border-radius: 999px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Como rodar o Frontend do Projeto</h1>
+    <div class="subtitle">Guia rápido + configuração de CORS no Spring Boot</div>
+  </header>
+  <main>
+    <section class="card">
+      <h2>Índice</h2>
+      <ol class="toc">
+        <li><a href="#pre">Pré-requisitos</a></li>
+        <li><a href="#passos">Passos para rodar o Frontend</a></li>
+        <li><a href="#server-local">Servidor local (recomendado)</a></li>
+        <li><a href="#conexao">Conexão com a API</a></li>
+        <li><a href="#testes">Testando</a></li>
+        <li><a href="#cors">Configurar CORS no Spring Boot</a></li>
+        <li><a href="#fetch">Exemplo de envio de dados (fetch)</a></li>
+      </ol>
+    </section>
 
-Clonar o repositório
+    <section id="pre" class="card">
+      <h2>Pré-requisitos</h2>
+      <ul>
+        <li>Navegador atualizado (Chrome, Firefox, Edge).</li>
+        <li>Backend da API rodando em <span class="inline-code">http://localhost:8080</span> ou URL pública (Render, Railway etc.).</li>
+      </ul>
+    </section>
 
-git clone https://github.com/seu-usuario/seu-projeto-frontend.git
-cd seu-projeto-frontend
+    <section id="passos" class="card">
+      <h2>Passos para rodar o Frontend</h2>
+      <h3>1) Clonar o repositório</h3>
+      <pre><code>git clone https://github.com/seu-usuario/seu-projeto-frontend.git
+cd seu-projeto-frontend</code></pre>
 
+      <h3>2) Abrir os arquivos HTML</h3>
+      <p>Você pode abrir direto no navegador:</p>
+      <ul>
+        <li><span class="inline-code">index.html</span> → Tela de login</li>
+        <li><span class="inline-code">cadastrar.html</span> → Tela de cadastro</li>
+        <li><span class="inline-code">dashboard.html</span> → Painel principal</li>
+      </ul>
+      <div class="tip"><strong>Dica:</strong> clique com o botão direito no arquivo e selecione <em>Abrir com → Navegador</em>.</div>
+    </section>
 
-Abrir os arquivos HTML
-Você pode abrir direto no navegador:
+    <section id="server-local" class="card">
+      <h2>Rodar com servidor local <span class="pill">opcional, recomendado</span></h2>
+      <p>Para evitar erros de CORS ou carregamento, rode um servidor local:</p>
+      <ol>
+        <li>No VS Code, instale a extensão <strong>Live Server</strong>.</li>
+        <li>Clique em <em>"Go Live"</em> no rodapé do VS Code.</li>
+        <li>O projeto abrirá em <span class="inline-code">http://localhost:5500</span>.</li>
+      </ol>
+      <details>
+        <summary>Alternativas sem VS Code</summary>
+        <ul>
+          <li>Python HTTP server: <span class="inline-code">python -m http.server 5500</span></li>
+          <li>Node http-server: <span class="inline-code">npx http-server -p 5500</span></li>
+        </ul>
+      </details>
+    </section>
 
-index.html → Tela de login
+    <section id="conexao" class="card">
+      <h2>Conexão com a API</h2>
+      <p>O frontend se comunica com a API pelo endereço configurado no JavaScript. Procure por algo como:</p>
+      <pre><code>const API_URL = "http://localhost:8080";</code></pre>
+      <p>Se você hospedar sua API (ex.: Render), troque para a URL pública:</p>
+      <pre><code>const API_URL = "https://seu-projeto.onrender.com";</code></pre>
+    </section>
 
-cadastrar.html → Tela de cadastro
+    <section id="testes" class="card">
+      <h2>Testando</h2>
+      <ol>
+        <li>Abra o <span class="inline-code">index.html</span>.</li>
+        <li>Faça login ou cadastre um usuário.</li>
+        <li>Se a API estiver OK, o frontend exibirá dados no <span class="inline-code">dashboard</span>.</li>
+      </ol>
+    </section>
 
-dashboard.html → Painel principal
+    <section id="cors" class="card">
+      <h2>Configurar CORS no Spring Boot</h2>
+      <p>Por padrão, navegadores bloqueiam requisições <em>cross-origin</em> (ex.: front em <span class="inline-code">http://localhost:5500</span> e API em <span class="inline-code">http://localhost:8080</span>). O Spring Boot precisa liberar isso.</p>
 
-👉 Dica: clique com o botão direito no arquivo e selecione Abrir com → Navegador.
-
-Rodar com servidor local (opcional, recomendado)
-Para evitar erros de CORS ou carregamento, rode um servidor local:
-
-Se tiver o VS Code, instale a extensão Live Server.
-
-Depois clique em "Go Live" no rodapé do VS Code.
-
-O projeto abrirá em http://localhost:5500.
-
-🔗 Conexão com a API
-
-O frontend se comunica com a API pelo endereço configurado no JavaScript.
-No seu código, há algo como:
-
-const API_URL = "http://localhost:8080"; 
-
-
-➡️ Se você hospedar sua API (ex: Render), troque para a URL pública, por exemplo:
-
-const API_URL = "https://seu-projeto.onrender.com";
-
-✅ Testando
-
-Abra o index.html.
-
-Faça login ou cadastre um usuário.
-
-Se a API estiver rodando corretamente, o frontend se conectará e exibirá os dados no dashboard.
-
-#Configure o Cors, permita o envio de dados 
-Por padrão, navegadores bloqueiam requisições cross-origin (quando o front roda em http://localhost:5500 e a API em http://localhost:8080).
-O Spring Boot precisa liberar isso.
-
-✅ Configuração Global de CORS
-
-Crie uma classe de configuração, por exemplo CorsConfig.java:
-
-package br.com.seuprojeto.config;
+      <h3>✅ Configuração Global de CORS</h3>
+      <p>Crie a classe <span class="inline-code">CorsConfig.java</span>:</p>
+      <pre><code>package br.com.seuprojeto.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -70,20 +141,19 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // libera todos os endpoints
-                        .allowedOrigins("http://localhost:5500", "http://127.0.0.1:5500", "https://seu-front.netlify.app") // coloque aqui os endereços do seu front
+                        .allowedOrigins("http://localhost:5500", "http://127.0.0.1:5500", "https://seu-front.netlify.app") // endereços do seu front
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // métodos permitidos
-                        .allowedHeaders("*") // permite todos os headers
-                        .allowCredentials(true); // permite envio de cookies/autenticação
+                        .allowedHeaders("*") // todos os headers
+                        .allowCredentials(true); // permite cookies/autenticação
             }
         };
     }
 }
+</code></pre>
 
-🔹 Se você usa Spring Security
-
-O CORS também precisa ser habilitado na configuração de segurança:
-
-import org.springframework.context.annotation.Bean;
+      <h3>🔹 Se você usa Spring Security</h3>
+      <p>Habilite CORS na configuração de segurança:</p>
+      <pre><code>import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -94,7 +164,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf().disable() // desabilita CSRF se estiver em desenvolvimento
+            .csrf().disable() // desabilite em DEV; em PROD, avalie manter habilitado e usar tokens
             .cors().and() // habilita CORS
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/publico/**").permitAll() // libera endpoints públicos
@@ -104,12 +174,13 @@ public class SecurityConfig {
         return http.build();
     }
 }
+</code></pre>
+      <div class="warn"><strong>Atenção:</strong> Em produção, evite <em>"*"</em> em <span class="inline-code">allowedOrigins</span>. Restrinja aos seus domínios reais.</div>
+    </section>
 
-🔧 No Frontend
-
-Agora você pode enviar requisições fetch normalmente:
-
-fetch("http://localhost:8080/api/usuarios", {
+    <section id="fetch" class="card">
+      <h2>Exemplo: envio de dados com <span class="inline-code">fetch</span></h2>
+      <pre><code>fetch("http://localhost:8080/api/usuarios", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -122,3 +193,18 @@ fetch("http://localhost:8080/api/usuarios", {
 .then(res => res.json())
 .then(data => console.log("Usuário cadastrado:", data))
 .catch(err => console.error("Erro:", err));
+</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>FAQ rápido</h2>
+      <p><strong>Erro CORS?</strong> Verifique <span class="inline-code">allowedOrigins</span> e se o navegador está acessando exatamente o mesmo host/porta configurados.</p>
+      <p><strong>API pública (Render)?</strong> Troque <span class="inline-code">API_URL</span> para a URL pública e, se usar <span class="inline-code">allowCredentials(true)</span>, configure <span class="inline-code">allowedOrigins</span> com o domínio do seu front.</p>
+    </section>
+
+    <footer class="muted" style="text-align:center; padding: 22px;">
+      <span>Feito para devs Java/Spring Boot. Ajuste os domínios e endpoints conforme seu projeto.</span>
+    </footer>
+  </main>
+</body>
+</html>
