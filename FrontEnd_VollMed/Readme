@@ -1,0 +1,124 @@
+# Passos para rodar o Frontend
+
+Clonar o repositório
+
+git clone https://github.com/seu-usuario/seu-projeto-frontend.git
+cd seu-projeto-frontend
+
+
+Abrir os arquivos HTML
+Você pode abrir direto no navegador:
+
+index.html → Tela de login
+
+cadastrar.html → Tela de cadastro
+
+dashboard.html → Painel principal
+
+👉 Dica: clique com o botão direito no arquivo e selecione Abrir com → Navegador.
+
+Rodar com servidor local (opcional, recomendado)
+Para evitar erros de CORS ou carregamento, rode um servidor local:
+
+Se tiver o VS Code, instale a extensão Live Server.
+
+Depois clique em "Go Live" no rodapé do VS Code.
+
+O projeto abrirá em http://localhost:5500.
+
+🔗 Conexão com a API
+
+O frontend se comunica com a API pelo endereço configurado no JavaScript.
+No seu código, há algo como:
+
+const API_URL = "http://localhost:8080"; 
+
+
+➡️ Se você hospedar sua API (ex: Render), troque para a URL pública, por exemplo:
+
+const API_URL = "https://seu-projeto.onrender.com";
+
+✅ Testando
+
+Abra o index.html.
+
+Faça login ou cadastre um usuário.
+
+Se a API estiver rodando corretamente, o frontend se conectará e exibirá os dados no dashboard.
+
+#Configure o Cors, permita o envio de dados 
+Por padrão, navegadores bloqueiam requisições cross-origin (quando o front roda em http://localhost:5500 e a API em http://localhost:8080).
+O Spring Boot precisa liberar isso.
+
+✅ Configuração Global de CORS
+
+Crie uma classe de configuração, por exemplo CorsConfig.java:
+
+package br.com.seuprojeto.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class CorsConfig {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**") // libera todos os endpoints
+                        .allowedOrigins("http://localhost:5500", "http://127.0.0.1:5500", "https://seu-front.netlify.app") // coloque aqui os endereços do seu front
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // métodos permitidos
+                        .allowedHeaders("*") // permite todos os headers
+                        .allowCredentials(true); // permite envio de cookies/autenticação
+            }
+        };
+    }
+}
+
+🔹 Se você usa Spring Security
+
+O CORS também precisa ser habilitado na configuração de segurança:
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf().disable() // desabilita CSRF se estiver em desenvolvimento
+            .cors().and() // habilita CORS
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/publico/**").permitAll() // libera endpoints públicos
+                .anyRequest().authenticated()
+            );
+
+        return http.build();
+    }
+}
+
+🔧 No Frontend
+
+Agora você pode enviar requisições fetch normalmente:
+
+fetch("http://localhost:8080/api/usuarios", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    nome: "Matheus",
+    email: "teste@teste.com"
+  })
+})
+.then(res => res.json())
+.then(data => console.log("Usuário cadastrado:", data))
+.catch(err => console.error("Erro:", err));
