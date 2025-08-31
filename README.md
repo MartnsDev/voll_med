@@ -1,4 +1,5 @@
 # Vollmed_api
+![Vollmed API](https://github.com/MartnsDev/voll_med/blob/6f6e0b42ac81166926e78a99d81a652df698e87e/Vollmed_api.png?raw=true)
 Projeto desenvolvido durante a formação de Spring Boot na Alura, onde praticamos e aprofundamos diversos recursos do framework no desenvolvimento de APIs Java. Este repositório reúne exercícios e implementações feitas ao longo do curso, incluindo funcionalidades, testes e documentação da API.
 
 ## Sobre o Projeto
