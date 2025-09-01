@@ -112,6 +112,8 @@ Cadastrar Usuario	POST	/cadastrar
 Médicos	GET/POST	/medicos
 Pacientes	GET/POST	/pacientes
 Consultas	GET/POST/PUT/DELETE	/consultas
+<br>
+
 👨‍💻 Autor
 
 ```
