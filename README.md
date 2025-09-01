@@ -115,7 +115,7 @@ Feito por Matheus Martins durante a formação Spring Boot Web Developer - Alura
 
 📧 Email: mtz.martinss03@gmail.com
 
-💼 LinkedIn: linkedin.com/in/martnsdeveloper
+💼 LinkedIn: linkedin.com/in/matheusmartnsdev/
 ```
 📦 Como Instalar
 
