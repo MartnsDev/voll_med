@@ -110,12 +110,16 @@ src/main/java/br/com/vollmed
 👨‍💻 Autor
 
 Feito por Matheus Martins durante a formação Spring Boot Web Developer - Alura.
-```
+
 📬 Contato
 
-📧 Email: mtz.martinss03@gmail.com
-
-💼 LinkedIn: linkedin.com/in/matheusmartnsdev/
+Email: 
+```
+mtz.martinss03@gmail.com
+```
+LinkedIn: 
+```
+linkedin.com/in/matheusmartnsdev/
 ```
 📦 Como Instalar
 
