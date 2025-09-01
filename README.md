@@ -58,6 +58,7 @@ Durante o desenvolvimento foram praticados:
 
 📌 A documentação interativa está disponível em:  
 👉 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)  
+![Documentação Swagger](https://github.com/MartnsDev/voll_med/raw/2e8bb322edc0df4218b248bf424fcbb58672952b/documenta%C3%A7%C3%A3o-swagger.png)
 
 Principais métodos suportados:  
 - `POST` → Criar recursos  
