@@ -63,6 +63,41 @@ Execute todos os testes com:
 
 mvn test
 
+---
+🔹 Configuração de CORS
+
+Para permitir que o frontend acesse a API sem problemas de CORS, adicione a seguinte configuração:
+
+// src/main/java/br/com/vollmed/config/CorsConfig.java
+package br.com.vollmed.config;
+
+```
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class CorsConfig {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")        // Permite todas as rotas
+                        .allowedOrigins("http://localhost:5500") // Endereço do frontend
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
+            }
+        };
+    }
+}
+```
+
+🔹 Obs: Substitua "http://localhost:5500" pelo endereço real do seu frontend, se necessário.
+
 🔹 Endpoints Importantes
 
 Documentação interativa com Swagger:
