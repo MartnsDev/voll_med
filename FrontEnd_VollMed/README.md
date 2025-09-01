@@ -78,11 +78,15 @@ Certifique-se de que o backend esteja rodando antes de acessar o frontend
 Caso haja erro de CORS, verifique a configuração do CorsConfig no backend
 
 Para desenvolvimento rápido, o Live Server do VS Code é a forma mais prática de testar
-```
 👨‍💻 Autor
-Matheus Martins - Desenvolvedor Java & Spring Boot
 
-Email: mtz.martinss03@gmail.com
+Matheus Martins
 
-LinkedIn: linkedin.com/in/martnsdeveloper
+Email: 
+```
+mtz.martinss03@gmail.com
+```
+LinkedIn: 
+```
+linkedin.com/in/matheusmartnsdev/
 ```
