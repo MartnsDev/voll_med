@@ -104,7 +104,7 @@ src/main/java/br/com/vollmed
 ├── repository    → comunicação com o banco (JPA)
 ├── entity/model  → entidades do domínio
 ├── dto           → objetos de transferência de dados
-└── config        → configurações (segurança, CORS, etc.)
+└── config/exceptions  → configurações (segurança, CORS, Exceptions etc.)
 ```
 
 👨‍💻 Autor
