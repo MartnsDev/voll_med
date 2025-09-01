@@ -1,33 +1,27 @@
-# Configurando o Backend.
+# Vollmed API - Backend
 
-1. Clonar o Repositório
-git clone https://github.com/MartnsDev/voll_med.git
-cd Vollmed_API
+Este README explica como configurar e rodar o **backend da Vollmed API** desenvolvido em **Java 17 + Spring Boot**.  
 
-## 2. Configurar Variáveis de Ambiente
+---
 
-Crie um arquivo .env (ou configure diretamente no terminal) com as variáveis do banco de dados:
+## 🔹 Pré-requisitos
 
+Antes de começar, verifique se você possui:  
+- **Java 17** instalado  
+- **Maven** instalado  
+- **Banco de dados MySQL** (ou compatível) rodando localmente ou em servidor  
+- IDE opcional (IntelliJ, VS Code, Eclipse) para facilitar o desenvolvimento  
+
+---
+
+## 🔹 Configuração do Banco de Dados
+
+1. Crie um banco chamado `vollmed_api`.  
+2. Configure um usuário com permissões de leitura e escrita.  
+3. Crie um arquivo `.env` ou configure variáveis de ambiente com as informações do banco:
+
+```env
 DATASOURCE_URL=jdbc:mysql://localhost:3306/vollmed_api
 DATASOURCE_USERNAME=root
 DATASOURCE_PASSWORD=sua_senha
-
-## 3. Executar o Projeto
-
-Para rodar a aplicação em modo produção com profile e variáveis de ambiente:
-
-java -Dspring.profiles.active=prod \
-     -DDATASOURCE_URL=jdbc:mysql://localhost:3306/vollmed_api \
-     -DDATASOURCE_USERNAME=root \
-     -DDATASOURCE_PASSWORD=sua_senha \
-     -jar target/api-0.0.1-SNAPSHOT.jar
-
-Após configurar os Dados e criar a database, as tabelas são criadas automaticamente ao rodar o projeto.
-
-## 4. Acessar a API
-
-Swagger UI: http://localhost:8080/swagger-ui.html
-
-Endpoints REST: http://localhost:8080/api/...
-
-## Certifique-se de que o MySQL ou o Banco de dados que esteja rodando e que o banco vollmed_api exista antes de iniciar a aplicação.
+JWT_SECRET=segredo_supersecreto
