@@ -116,12 +116,14 @@ Consultas	GET/POST/PUT/DELETE	/consultas
 
 👨‍💻 Autor
 
+Matheus Martins
+
+Email: 
 ```
-Matheus Martins - Desenvolvedor Java & Spring Boot
-
-Email: mtz.martinss03@gmail.com
-
-LinkedIn: linkedin.com/in/martnsdeveloper
+mtz.martinss03@gmail.com
 ```
-
+LinkedIn: 
+```
+linkedin.com/in/matheusmartnsdev/
+```
 
