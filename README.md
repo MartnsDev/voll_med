@@ -43,6 +43,84 @@ Durante o curso, praticamos:
 - Aplicação de testes automatizados em diferentes camadas da aplicação.
 - Preparação da aplicação para deploy em produção com perfis e variáveis de ambiente.
 
+- ### 🔄 Endpoints principais (Swagger)
+
+A API possui documentação interativa disponível via Swagger:
+
+> 🔗 Acesse: [http://localhost:8080/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
+
+#### 🧾 Requisições:
+- `POST`
+- `GET`   
+- `GET` 
+- `PUT`
+- `DELETE`
+- 
+---
+
+### ▶️ Como executar o projeto
+
+#### 1. Rodar a aplicação
+
+No terminal (ou pela IDE):
+```bash
+Terminal da IDLE:
+ls target/
+java -jar ./target/api.jar
+
+Terminal:
+cd (Pasta do projeto)
+ls target/
+java -jar ./target/api.jar
+```
+---
+### ✅ Status atual
+- [x] Login e Cadastro de Usuarios
+
+- [X] Cadastro de Médicos e Pacientes
+
+- [X] Atualizar Dados de Médicos e Pacientes
+
+- [X] Agendamento De Consultas
+
+- [X] Validações completas e tratamento
+
+- [X] Testes automatizados
+
+
+## Arquitetura e Estrutura do Projeto
+
+O projeto segue a arquitetura **MVC (Model-View-Controller)**, garantindo separação clara das responsabilidades e facilitando manutenção e escalabilidade.
+
+### Swagger
+![image]()
+
+### Organização dos Pacotes
+
+
+
+### Descrição dos Componentes
+
+
+
+
+---
+###### 👨‍💻 Autor
+
+Feito por Matheus Martins durante o curso de Spring Boot Web Developer na Alura.
+
+
+---
+
+## Contato
+
+Para dúvidas ou sugestões, entre em contato:  
+- mtz,martinss03@gmail.com
+- https://www.linkedin.com/in/martnsdeveloper/
+
+---
+
+
   ## Como Instalar?
   Readmes Contém a Explicação.
   - BackEnd_VollMed
