@@ -84,7 +84,7 @@ mvn clean install
 
 # Rodar a aplicação
 ```
-java -jar target/api.jar
+java -jar target/api.jar (Ou o nome que gerar, ex: SNAPSHOT-001_api.jar)
 ```
 ✅ Status Atual
 
