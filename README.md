@@ -70,15 +70,20 @@ Principais métodos suportados:
 
 ## ▶️ Como executar o projeto  
 
-```bash
+bash
 # Clonar o repositório
+```
 git clone https://github.com/MartnsDev/voll_med.git
 cd voll_med
+```
 
 # Gerar o build
+```
 mvn clean install
+```
 
 # Rodar a aplicação
+```
 java -jar target/api.jar
 ```
 ✅ Status Atual
