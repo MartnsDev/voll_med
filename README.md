@@ -24,7 +24,7 @@ A **Vollmed API** permite:
 - **Validações customizadas** → separação em validadores dedicados  
 - **Segurança** → autenticação com Spring Security + JWT  
 - **Documentação** → integração com SpringDoc e Swagger  
-- **Testes** → Repository, Controller e JSON com MockMvc + JacksonTester  
+- **Testes** → Repository, Controller e JSON com MockMvc + JacksonTester + Junity
 
 ---
 
